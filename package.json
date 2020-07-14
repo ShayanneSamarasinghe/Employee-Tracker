@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/ShayanneSamarasinghe/Employee-Tracker/issues"
   },
-  "homepage": "https://github.com/ShayanneSamarasinghe/Employee-Tracker#readme"
+  "homepage": "https://github.com/ShayanneSamarasinghe/Employee-Tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.2",
+    "mysql": "^2.18.1"
+  }
 }
