@@ -40,6 +40,19 @@ const db = new Database({
 });
 
 
+function start(){
+    inquirer.prompt(
+        [
+            {
+                type:"rawlist",
+                name:"start",
+                messages: "Would you like to view tables? Add to tables? Or update tables?",
+                choices: ["view", "add", "update"]
+            }
+        ]
+    )
+}
+
 inquirer.prompt(
     [
         {
