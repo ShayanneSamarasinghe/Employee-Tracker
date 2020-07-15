@@ -60,7 +60,7 @@ function start(){
         else{
             add()
         }
-    }
+    })
 
 }
    
