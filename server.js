@@ -58,7 +58,7 @@ function start(){
             add ();
         }
         else{
-            add()
+            update()
         }
     })
 
