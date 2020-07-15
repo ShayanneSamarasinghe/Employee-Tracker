@@ -1,10 +1,7 @@
 var mysql = require('mysql')
 var inquirer = require('inquirer')
 var cTable = require('console.table');
-
-
-const mysql = require("mysql");
-const inquirer = require("inquirer");
+require('dotenv').config()
 
 class Database {
   constructor( config ) {
@@ -15,6 +12,7 @@ class Database {
           this.connection.query( sql, args, ( err, rows ) => {
               if ( err )
                   return reject( err );
+              
               resolve( rows );
           } );
       } );
@@ -30,6 +28,8 @@ class Database {
   }
 }
 
+
+
 const db = new Database({
   host: "localhost",
   port: 3306,
@@ -38,3 +38,48 @@ const db = new Database({
   database: process.env.DB_NAME,
   insecureAuth : true
 });
+
+
+inquirer.prompt(
+    [
+        {
+            type: "rawlist",
+            name: "viewTables",
+            message: "Would you like to view the tables?",
+            choices: ["Departments", "Role", "Employees"]
+        }
+
+    ]
+).then(function(answers){
+    console.log(answers)
+    if(answers.viewTables === "Departments"){
+      db.query("SELECT * FROM department").then(
+          function(departmentData){
+          console.table(departmentData) 
+          db.close()
+          }
+      )
+     
+
+    }else if(answers.viewTables === "Role"){
+       db.query("SELECT * FROM role").then(
+           function(roleData){
+            console.table(roleData)
+            db.close()
+           }
+       ) 
+        
+
+    }else{
+       db.query("SELECT * FROM employee").then(
+                function(employeeData){
+                console.table(employeeData)
+                db.close()
+                }
+            )
+        
+        
+
+
+    }
+})
