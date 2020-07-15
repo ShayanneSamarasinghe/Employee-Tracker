@@ -50,18 +50,20 @@ function start(){
                 choices: ["view", "add", "update"]
             }
         ]
-    )
-}.then(function(answers){
-    if(answers.start === "view"){
-        view();
+    ).then(function(answers){
+        if(answers.start === "view"){
+            view();
+        }
+        else if(answers.start === "add"){
+            add ();
+        }
+        else{
+            add()
+        }
     }
-    else if(answers.start === "add"){
-        add ();
-    }
-    else{
-        update();
-    }
-})
+
+}
+   
 
 function view(){
     inquirer.prompt(
