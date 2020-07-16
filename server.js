@@ -130,7 +130,17 @@ function add(){
           db.query("SELECT * FROM department").then(
               function(departmentData){
               console.table(departmentData) 
-              
+                inquirer.prompt(
+                    [
+                        {
+                            type:"input",
+                            name:"departmentInput",
+                            message:"Please add info"
+                        }
+                    ]
+                ).then(function(answers){
+                    
+                })
               }
           )
          
