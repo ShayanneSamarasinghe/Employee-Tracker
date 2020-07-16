@@ -135,11 +135,11 @@ function add(){
                         {
                             type:"input",
                             name:"departmentInput",
-                            message:"Please add info"
+                            message:"What department would you like to add?"
                         }
                     ]
                 ).then(function(answers){
-                    
+                    db.query("INSERT INTO department SET ?", answers.departmentInput)
                 })
               }
           )
