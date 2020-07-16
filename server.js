@@ -111,3 +111,56 @@ function view(){
     })
 
 }
+
+
+function add(){
+    inquirer.prompt(
+        [
+            {
+                type: "rawlist",
+                name: "viewTables",
+                message: "Which table would you like to add to?",
+                choices: ["Departments", "Role", "Employees"]
+
+            }
+        ]
+    ).then(function(answers){
+        console.log(answers)
+        if(answers.viewTables === "Departments"){
+          db.query("SELECT * FROM department").then(
+              function(departmentData){
+              console.table(departmentData) 
+              
+              }
+          )
+         
+    
+        }else if(answers.viewTables === "Role"){
+           db.query("SELECT * FROM role").then(
+               function(roleData){
+                console.table(roleData)
+              
+               }
+           ) 
+            
+    
+        }else{
+           db.query("SELECT * FROM employee").then(
+                    function(employeeData){
+                    console.table(employeeData)
+                    
+                    }
+                )
+            
+            
+    
+    
+        }
+    })
+    
+
+}
+
+function update(){}
+
+start();
