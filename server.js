@@ -139,7 +139,9 @@ function add(){
                         }
                     ]
                 ).then(function(answers){
-                    db.query("INSERT INTO department SET ?", answers.departmentInput)
+                    console.log("department input: ",answers.departmentInput)
+                    db.query("INSERT INTO department SET ? ", answers.departmentInput)
+
                 })
               }
           )
