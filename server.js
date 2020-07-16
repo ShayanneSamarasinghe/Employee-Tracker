@@ -125,54 +125,59 @@ function add(){
             }
         ]
     ).then(function(answers){
-        console.log(answers)
         if(answers.viewTables === "Departments"){
-          db.query("SELECT * FROM department").then(
-              function(departmentData){
-              console.table(departmentData) 
-                inquirer.prompt(
-                    [
-                        {
-                            type:"input",
-                            name:"departmentInput",
-                            message:"What department would you like to add?"
-                        }
-                    ]
-                ).then(function(answers){
-                    console.log("department input: ",answers.departmentInput)
-                    db.query("INSERT INTO department SET ? ", answers.departmentInput)
-
-                })
-              }
-          )
-         
-    
-        }else if(answers.viewTables === "Role"){
-           db.query("SELECT * FROM role").then(
-               function(roleData){
-                console.table(roleData)
-              
-               }
-           ) 
-            
-    
-        }else{
-           db.query("SELECT * FROM employee").then(
-                    function(employeeData){
-                    console.table(employeeData)
-                    
+            inquirer.prompt(
+                [
+                    {
+                        type:"input",
+                        name: "departmentInput",
+                        message: "Please add a department?"
                     }
-                )
-            
-            
-    
-    
+                ]
+
+
+            ).then(function(answers){
+                db.query('INSERT INTO department SET name = ?', [answers.departmentInput])
+            })
+
+
+
+        }else if(answers.viewTables === "Role"){
+            inquirer.prompt(
+                [
+                    {
+                        type:"rawlist",
+                        name:"columnName",
+                        message: "What column would you like to add to?", 
+                        choices: ["Title", "Salary", "Department"]
+                    }
+                ]
+            ).then(function(answers){
+                if(answers.columnName === "Title"){
+                    inquirer.prompt(
+                        [
+                            {
+                                type:"input",
+                                name: "titleInput",
+                                message: "what is there title?"
+                            }
+                        ]
+                    ).then(function(answers){
+                      db.query('INSERT INTO role SET title = ?', [answers.titleInput]) 
+                    })
+                    
+
+                }
+            })
         }
+       
     })
-    
-
+        
 }
+    
+           
+                       
 
-function update(){}
+// function update(){}
 
-start();
+start()
