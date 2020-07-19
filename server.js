@@ -234,7 +234,23 @@ function update(){
                 }
             ]).then(function(answers){
                 if (answers.viewEmployees === choicesArray[i]){
-                    inquirer.prompt
+                    inquirer.prompt([
+                        {
+                            type:"input",
+                            name: "employeeRoleUpdate",
+                            message: "Please indicate which role id you would like to promote them to"
+                        }
+                    ]).then(function(answers){
+                        db.query("UPDATE employee SET ? WHERE ?", {
+                           role_id: answers.employeeRoleUpdate
+                            
+                        }).then(function(employeeData){
+                            console.log("Update employee role id")
+                            db.close()
+                        })
+
+                        
+                    })
                 }
             })
 
