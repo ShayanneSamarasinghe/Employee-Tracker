@@ -37,23 +37,6 @@ const db = new Database({
 
 
 
-function getDepartmentNames (choices) {
-   db.query("SELECT * FROM department").then(function (
-       departmentData
-     ) {
-         var choicesArray = [];
-         for (i = 0; i < departmentData.length; i++) {
-         var choicesObject = {
-             name: departmentData[i].name,
-             value: departmentData[i].id,
-          };
-          choicesArray.push(departmentData[i].id)
-        }
-        //   db.close();
-        return choicesArray 
-    })
-}
-
 function start() {
   inquirer
     .prompt([
@@ -91,7 +74,6 @@ function view() {
       if (answers.viewTables === "Departments") {
         db.query("SELECT * FROM department").then(function (departmentData) {
           console.table(departmentData);
-          console.log(departmentData);
           db.close();
         });
       } else if (answers.viewTables === "Role") {
@@ -133,36 +115,99 @@ function add() {
               answers.departmentInput,
             ]);
           });
+
       } else if (answers.viewTables === "Role") {
-        inquirer
-          .prompt([
-            {
-              type: "input",
-              name: "titleInput",
-              message: "what is there title?",
-            },
-            {
-              type: "input",
-              name: "salaryInput",
-              message: "what is there salary?",
-            },
-            {
-              type: "rawlist",
-              name: "depidInput",
-              message: "what is the department id?",
-              choices: getDepartmentNames ()
-            },
-          ])
-          .then(function (answers) {
-            db.query("INSERT INTO role SET ?", {
-              title: answers.titleInput,
-              salary: answers.salaryInput,
-              department_id: answers.depidInput,
-            }).then(function(departmentData){
-                console.table(departmentData)
-                db.close()
-            })
-          })
+        db.query("SELECT * FROM department").then(
+            function (departmentData) {
+                   var choicesArray = [];
+                   for (i = 0; i < departmentData.length; i++) {
+                   var choicesObject = {
+                       name: departmentData[i].name,
+                       value: departmentData[i].id,
+                    };
+                    choicesArray.push(departmentData[i].id)
+                  }
+          
+                  inquirer
+                  .prompt([
+                    {
+                      type: "input",
+                      name: "titleInput",
+                      message: "what is the title of role?",
+                    },
+                    {
+                      type: "input",
+                      name: "salaryInput",
+                      message: "what is the salary for the role?",
+                    },
+                    {
+                      type: "rawlist",
+                      name: "depidInput",
+                      message: "what is the department id of the role?",
+                      choices: choicesArray
+                    },
+                  ])
+                  .then(function (answers) {
+                    db.query("INSERT INTO role SET ?", {
+                      title: answers.titleInput,
+                      salary: answers.salaryInput,
+                      department_id: answers.depidInput,
+                    }).then(function(departmentData){
+                        // console.table(departmentData)
+                        db.close()
+                    })
+                  })
+               
+                
+              }) 
+        
+      } else{
+          db.query("SELECT * FROM role").then(
+              function(roleData){
+                  var choicesArray = [];
+                  for (i = 0; i < roleData.length; i++){
+                  var choicesObject = {
+                      name:roleData[i].title,
+                      value:roleData[i].id
+                  }
+                  choicesArray.push(roleData[i].id) 
+                  }
+                inquirer.prompt([
+                    {
+                        type:"input",
+                        name:"employeeFirstName",
+                        message: "What is the employees first name?"
+                    },
+                    {
+                        type:"input",
+                        name:"employeeLastName",
+                        message: "What is the employees Last name?"
+                    },
+                    {
+                        type:"input",
+                        name:"employeeManagerId",
+                        message: "What is the manager's id?" 
+                    },
+                    {
+                        type:"rawlist",
+                        name:"employeeRoleId",
+                        message: "What is their role id?",
+                        choices: choicesArray
+                    },
+
+                ]).then(function(answers){
+                    db.query("INSERT INTO employee SET?",{
+                        first_name: answers.employeeFirstName,
+                        last_name: answers.employeeLastName,
+                        manager_id: answers.employeeManagerId,
+                        role_id: answers.employeeRoleId
+                    }).then(function(roleData){
+                        db.close()
+                    })
+                })  
+              }
+              
+          )
       }
     })
 }
