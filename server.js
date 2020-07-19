@@ -52,6 +52,7 @@ function getDepartmentNames (choices) {
         //   db.close();
         return choicesArray 
     })
+}
 
 function start() {
   inquirer
@@ -149,7 +150,7 @@ function add() {
               type: "rawlist",
               name: "depidInput",
               message: "what is the department id?",
-              choices: getDepartmentnames ()
+              choices: getDepartmentNames ()
             },
           ])
           .then(function (answers) {
