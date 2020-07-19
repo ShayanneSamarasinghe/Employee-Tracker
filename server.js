@@ -35,6 +35,24 @@ const db = new Database({
   insecureAuth: true,
 });
 
+
+
+function getDepartmentNames (choices) {
+   db.query("SELECT * FROM department").then(function (
+       departmentData
+     ) {
+         var choicesArray = [];
+         for (i = 0; i < departmentData.length; i++) {
+         var choicesObject = {
+             name: departmentData[i].name,
+             value: departmentData[i].id,
+          };
+          choicesArray.push(departmentData[i].id)
+        }
+        //   db.close();
+        return choicesArray 
+    })
+
 function start() {
   inquirer
     .prompt([
@@ -131,23 +149,7 @@ function add() {
               type: "rawlist",
               name: "depidInput",
               message: "what is the department id?",
-              choices: function (choices) {
-                db.query("SELECT * FROM department").then(function (
-                  departmentData
-                ) {
-                  var choicesArray = [];
-                  for (i = 0; i < departmentData.length; i++) {
-                    var choicesObject = {
-                      name: departmentData[i].name,
-                      value: departmentData[i].id,
-                    };
-                    choicesArray.push(departmentData[i].id)
-                  }
-                //   db.close();
-                  return choicesArray 
-                  
-                });
-              },
+              choices: getDepartmentnames ()
             },
           ])
           .then(function (answers) {
@@ -161,9 +163,9 @@ function add() {
             })
           })
       }
-    });
+    })
 }
 
 // function update(){}
 
-start();
+start()
