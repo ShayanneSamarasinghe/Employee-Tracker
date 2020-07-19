@@ -27,8 +27,9 @@ INSERT INTO department VALUES (1, "Web Dev");
 
 INSERT INTO role VALUES (1, "Developer", 60000.00, 1);
 
+
 INSERT INTO employee VALUES(1,"Shayanne", "Samarasinghe", 1, 1);
-INSERT INTO employee VALUES(0,"Mick", "Johnson", 1, 1);
-INSERT INTO employee VALUES(0,"Alex", "Mastro", 1, 1)
+INSERT INTO employee VALUES(0,"Mick", "Johnson", 4, 1);
+INSERT INTO employee VALUES(0,"Alex", "Mastro", 2, 1)
 
 

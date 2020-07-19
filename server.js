@@ -202,16 +202,44 @@ function add() {
                         manager_id: answers.employeeManagerId,
                         role_id: answers.employeeRoleId
                     }).then(function(roleData){
+                        console.log("Updated employee table")
                         db.close()
                     })
                 })  
               }
-              
+
           )
       }
     })
 }
 
-// function update(){}
+function update(){
+    db.query("SELECT * FROM employee").then(
+        function(employeeData){
+            var choicesArray = []
+            for (i = 0; i < employeeData.length; i++){
+                var choicesObject = {
+                    name: employeeData[i].id,
+                    value:employeeData[i].first_name
+                }
+                choicesArray.push(employeeData[i].first_name)
+            }
+            inquirer.prompt([
+                {
+                    type:"rawlist",
+                    name: "viewEmployees",
+                    message: "Which employee would you like to promote?",
+                    choices:choicesArray
+
+                }
+            ]).then(function(answers){
+                if (answers.viewEmployees === choicesArray[i]){
+                    inquirer.prompt
+                }
+            })
+
+        }
+    )
+}
 
 start()
