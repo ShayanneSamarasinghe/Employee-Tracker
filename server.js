@@ -232,10 +232,7 @@ function update(){
                     choices:choicesArray
 
                 }
-            ]).then(function(answers){
-                console.log(answers)
-                console.log(choicesArray[i])``
-                
+            ]).then(function(answers){    
                     inquirer.prompt([
                         {
                             type:"input",
@@ -244,13 +241,10 @@ function update(){
                         }
                         
                     ]).then(function(answers){
-                        console.log(answers)
-                        db.query("UPDATE employee SET ? WHERE ?", 
-                        {
-                           role_id: answers.employeeRoleUpdate
-                            
+                        db.query("UPDATE employee SET ? WHERE ?", {
+                            role_id:answers.employeeRoleUpdate
                         }).then(function(employeeData){
-                            console.log("Updated employee role id")
+                            console.log("Updated role id in employee table")
                             db.close()
                         })
 
