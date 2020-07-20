@@ -231,27 +231,29 @@ function update(){
                     message: "Which employee would you like to promote?",
                     choices:choicesArray
 
+                },
+                {
+                    type:"input",
+                    name: "employeeRoleUpdate",
+                    message: "Please indicate which role id you would like to promote/demote them to"
                 }
-            ]).then(function(answers){    
-                    inquirer.prompt([
-                        {
-                            type:"input",
-                            name: "employeeRoleUpdate",
-                            message: "Please indicate which role id you would like to promote/demote them to"
-                        }
-                        
-                    ]).then(function(answers){
-                        db.query("UPDATE employee SET ? WHERE ?", {
-                            role_id:answers.employeeRoleUpdate
-                        }).then(function(employeeData){
-                            console.log("Updated role id in employee table")
-                            db.close()
-                        })
+                
+            ]).then(function(answers){
+                db.query("UPDATE employee SET ? WHERE ?", {
+                    role_id:answers.employeeRoleUpdate
+                }).then(function(employeeData){
+                    console.log("Updated role id in employee table")
+                    db.close()
+                })
 
-                        
-                    })
                 
             })
+                    
+                        
+                        
+                    
+                
+            
 
         }
     )
