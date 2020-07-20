@@ -233,25 +233,30 @@ function update(){
 
                 }
             ]).then(function(answers){
-                if (answers.viewEmployees === choicesArray[i]){
+                console.log(answers)
+                console.log(choicesArray[i])``
+                
                     inquirer.prompt([
                         {
                             type:"input",
                             name: "employeeRoleUpdate",
-                            message: "Please indicate which role id you would like to promote them to"
+                            message: "Please indicate which role id you would like to promote/demote them to"
                         }
+                        
                     ]).then(function(answers){
-                        db.query("UPDATE employee SET ? WHERE ?", {
+                        console.log(answers)
+                        db.query("UPDATE employee SET ? WHERE ?", 
+                        {
                            role_id: answers.employeeRoleUpdate
                             
                         }).then(function(employeeData){
-                            console.log("Update employee role id")
+                            console.log("Updated employee role id")
                             db.close()
                         })
 
                         
                     })
-                }
+                
             })
 
         }
