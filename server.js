@@ -235,7 +235,7 @@ function update(){
                 {
                     type:"input",
                     name: "employeeRoleUpdate",
-                    message: "Please indicate which role id you would like to promote/demote them to"
+                    message: "Please indicate which role id you would like to promote/demote them to."
                 }
 
             ]).then(function(answers){
