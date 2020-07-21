@@ -153,7 +153,7 @@ function add() {
                       salary: answers.salaryInput,
                       department_id: answers.depidInput,
                     }).then(function(departmentData){
-                        // console.table(departmentData)
+                        console.log("Updated role table")
                         db.close()
                     })
                   })
