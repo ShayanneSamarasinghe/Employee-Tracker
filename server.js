@@ -219,10 +219,10 @@ function update(){
             var choicesArray = []
             for (i = 0; i < employeeData.length; i++){
                 var choicesObject = {
-                    name: employeeData[i].id,
-                    value:employeeData[i].first_name
+                    name: employeeData[i].first_name,
+                    value:employeeData[i].id
                 }
-                choicesArray.push(employeeData[i].first_name)
+                choicesArray.push(choicesObject)
             }
             inquirer.prompt([
                 {
@@ -237,11 +237,9 @@ function update(){
                     name: "employeeRoleUpdate",
                     message: "Please indicate which role id you would like to promote/demote them to"
                 }
-                
+
             ]).then(function(answers){
-                db.query("UPDATE employee SET ? WHERE ?", {
-                    role_id:answers.employeeRoleUpdate
-                }).then(function(employeeData){
+                db.query("UPDATE employee SET role_id = ? WHERE id = ?",  [answers.employeeRoleUpdate, answers.viewEmployees]).then(function(employeeData){
                     console.log("Updated role id in employee table")
                     db.close()
                 })
